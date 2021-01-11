@@ -1,0 +1,128 @@
+def reverse_number(num):
+  rev_num = 0
+  while num!=0:
+      # Reversing from end
+      rev_num = rev_num*10 + num%10
+      num = num//10
+  return rev_num
+
+def reverse_number_in_list(number_list):
+  new_list = []
+  for num in number_list:
+      new_list.append(reverse_number(num))
+  return new_list
+
+print(reverse_number_in_list([13, 45, 690, 57]))
+
+def tails_same(number_list):
+  first = number_list[0]
+  last = number_list[len(number_list)-1]
+  return first==last
+print(tails_same([1, 239, 949, 0, 84, 0, 1]))
+print(tails_same([1, 239, 949, 0, 84, 0, 13]))
+
+def remove_char(str_list, str):
+  new_list = []
+  for word in str_list:
+      new_list.append(word.replace(str,''))
+  return new_list
+print(remove_char(['adndj', 'adjdlaa', 'aa', 'djoe'],'a'))
+
+def return_growing_num_list(max):
+  num_list = []
+  for i in range(1,max+1,1):
+      num = ''
+      for j in range(i):
+          num += str(i)+' '
+      num_list.append(num[:len(num)-1])
+  return num_list
+print(return_growing_num_list(3))
+print(return_growing_num_list(4))
+
+def find_color(Colors,list1):
+  result=[]
+  for i in Colors:
+      for j in list1:
+          if i.lower()==j[0].lower():
+              result.append(j[1])
+  return result
+
+print(find_color({'black', 'pink', 'yellow'},[('green', 100), ('yellow', 13), ('red', 6)]))
+print(find_color({'yellow'}, [('black', 54), ('pink', 5)]))
+print(find_color( {'black', 'blue', 'yellow'}, [('yellow', 29), ('yellow', 19), ('black', 31), ('yellow', 67), ('green', 44)]))
+
+print("____"*20)
+
+def dict_contains_keys(nums,Dictionary):
+  for i in nums:
+      if i in Dictionary:
+          return True
+  return False
+
+print(dict_contains_keys({8, 10, 5}, {9: 'F', 10: 'X'}))
+print(dict_contains_keys({8, 9, 5, 1}, {6: 'i', 5: 'Y', 1: 'N', 0: 'E'}))
+print(dict_contains_keys({9, 10, 4}, {5: 'i', 3: 'o', 1: 'N'}))
+
+print("____"*20)
+
+
+def concatenate_dict(List):
+   result = {}
+   for i in List:
+       for j in sorted(i):
+           if j not in result:
+               result[j] = i[j]
+   return result
+
+
+print(concatenate_dict([{'Z': 6, 'k': 10, 'w': 3, 'I': 8, 'Y': 5}, {'Y': 1, 'Z': 4}, {'X': 2, 'L': 5}]))
+print(concatenate_dict([{'z': 0}, {'z': 7}]))
+print(concatenate_dict([{'b': 7, 'b': 10, 'A': 8, 'Z': 2, 'V': 1}]))
+print("____" * 20)
+
+
+def unique_values(Dictionary):
+   dict_values = list(Dictionary.values())
+   result = {Dictionary[i]: i for i in Dictionary if dict_values.count(Dictionary[i]) == 1}
+   return result
+
+
+print(unique_values({'X': 2, 'Y': 5, 'N': 2, 'L': 2, 'W': 1, 'G': 0, 'R': 1}))
+print(unique_values({'Z': 3, 'P': 3, 'E': 2, 'G': 0, 'T': 5, 'L': 1, 'Q': 0}))
+print(unique_values({'E': 3, 'X': 3}))
+print(unique_values({'G': 3, 'D': 3, 'C': 4, 'Q': 1, 'H': 1, 'M': 2, 'Z': 1, 'W': 3}))
+print(unique_values({'O': 2, 'T': 1, 'L': 5, 'W': 5, 'Z': 4, 'M': 5, 'B': 4, 'D': 0, 'F': 3, 'E': 1}))
+print("____" * 20)
+
+def dict_from_string(str1):
+  result={}
+  list1=str1.strip("{}' ").split(",")
+  for i in list1:
+      key,value=i.replace("'","").strip().split(": ")
+      try:
+          key=int(key)
+      except :
+          pass
+      try:
+          value=int(value)
+      except :
+          pass
+      result[key]=value
+  return result
+
+print(dict_from_string("{9: 'V', 'G': 0, 'M': 9, 'u': 3, 2: 'o', 8: 'u', 'q': 9, 'D': 1}"))
+print(dict_from_string("{10: 'D', 1: 'Z', 5: 'a'}"))
+print(dict_from_string("{'M': 2, 'V': 0, 3: 'x', 6: 'J', 5: 'J', 7: 'T', 8: 'P', 4: 'q', 1: 'h'}"))
+print(dict_from_string("{3: 'D', 10: 'T', 7: 'm', 'u': 9, 't': 5, 6: 'Z', 'H': 10, 'B': 6}"))
+print(dict_from_string("{'q': 10, 6: 'O', 'm': 6}"))
+
+
+print("____"*20)
+
+def flip_matrix(matrix):
+  return matrix[::-1]
+
+
+matrix=[["L","C"],["S","P"]]
+print(flip_matrix(matrix))
+print("____"*20)
