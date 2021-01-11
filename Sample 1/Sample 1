@@ -1,0 +1,178 @@
+#reverseInput.py
+if __name__ == "__main__":
+   print("File one __name__ is set to: {}" .format(__name__))
+str = 'Hello World'
+reversed=''.join(reversed(str))
+print(reversed)
+
+#waitForCorrectWord.py
+if __name__ == "__main__":
+   print("Kristo")
+word = input()
+while word != "Kristo":
+   print("Try again")
+word = input()
+
+#printMathResult.py
+if __name__ == "__main__":
+
+   operator = input()
+operand1 = int(input())
+operand2 = int(input())
+
+print()
+
+if operator == "+":
+   print(operand1+operand2)
+elif operator == "-":
+   print(operand1-operand2)
+elif operator == "*":
+   print(operand1*operand2)
+else:
+   print(operand1/operand2)
+
+#sumRange.py
+if __name__ == "__main__":
+
+   num1 = int(input())
+num2 = int(input())
+
+
+sumN = 0
+
+
+i = num1
+
+
+print()
+
+
+while i <= num2:
+
+   sumN = sumN + i
+
+i = i + 2
+
+print(sumN)
+
+#sumInputs.py
+num_input = 0
+
+countOfStringValues = 0
+
+growing_sum = 0
+
+
+
+while (countOfStringValues < 2):
+
+
+
+   inputNum = input()
+
+
+
+   num_input = num_input + 1
+
+
+
+   try:
+
+
+
+       inputNum = int(inputNum)
+
+
+
+       countOfStringValues = 0
+
+
+
+       growing_sum = growing_sum + inputNum
+
+
+
+   except ValueError:
+
+       countOfStringValues = countOfStringValues + 1
+
+
+result = growing_sum * num_input
+
+print(result)
+
+#splitString.py:
+growing_string = ''
+
+inputStr = input()
+
+
+while (inputStr != ''):
+
+
+   if (len(inputStr) >= len(growing_string)):
+
+       growing_string = growing_string + inputStr
+
+
+
+   else:
+
+       position = len(inputStr)
+
+       growing_string = growing_string[:position] \
+\
+                        + inputStr + growing_string[position:]
+
+   inputStr = input()
+
+
+print(growing_string)
+
+#numberGuess.py:
+number = 9
+
+
+totalGuess = int(input())
+
+num_guess = 0
+
+isGuessCorrect = 0
+
+
+
+while (num_guess < totalGuess):
+
+
+
+   userGuess = int(input())
+
+
+
+   if (userGuess > number):
+
+       print('too high')
+
+
+
+   elif (userGuess < number):
+
+       print('too low')
+
+
+
+   elif (num_guess < totalGuess and userGuess == number):
+
+       print('correct')
+
+       isGuessCorrect = 1
+
+       break
+
+
+   num_guess = num_guess + 1
+
+
+if (isGuessCorrect == 0):
+   print('Wrong')
+
