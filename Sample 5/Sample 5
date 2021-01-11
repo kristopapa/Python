@@ -1,0 +1,34 @@
+def raiseIndexError():
+    # raise IndexError
+    raise IndexError
+
+def raiseZeroDivisionErrorWithMessage(message:str):
+    # raisse the error with message
+    raise ZeroDivisionError(message)
+
+def raiseThisException(exception):
+    raise exception # raise the exception
+
+def catchAndReturnMessage(message:str, main_function:callable) -> str:
+    # use a try except block
+    try:
+        main_function()
+        return message
+    except Exception as e:
+        # an exception occured
+        return str(e)
+  
+def catchCleanupAndThrow(main_supplier:callable, index_supplier:callable, zero_supplier:callable, cleanup:callable) -> str:
+    # try to run main_supplier
+    try:
+        return main_supplier()
+    except IndexError:
+        # index error
+        return index_supplier()
+    except ZeroDivisionError:
+        return zero_supplier()
+    finally:
+        # finally block gets executed
+        # reagardless an exception is
+        # thrown or not
+        cleanup()
