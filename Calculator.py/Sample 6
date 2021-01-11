@@ -1,0 +1,182 @@
+from tkinter import *
+    
+    
+    
+    window = Tk()
+    
+    window.title("Kristo's Calculator")
+    
+    
+    class GUI():
+    
+        def __init__(self, input_text, memory_text, operation):
+            self.gui_input_text = input_text
+            self.gui_memory_text = memory_text
+            self.gui_operation = operation
+    
+    
+            memory_display = Entry(window, textvariable=self.gui_memory_text, font=('arial', 18, 'bold')).grid(row=0,
+                                                                                                               column=0,
+                                                                                                               columnspan=4)
+            display = Entry(window, font=('arial', 18, 'bold'), textvariable=self.gui_input_text).grid(row=1, column=0,
+                                                                                                       columnspan=4)
+            buttons = ['M+', 'M-', 'MR', 'MC',
+                       'CA', 'Sqr', 'Del', '/',
+                       '7', '8', '9', '*',
+                       '4', '5', '6', '-',
+                       '1', '2', '3', '+',
+                       '0', '%', '.', '=','HS'
+                       ]
+            count = 0
+            for row in range(2, 8):
+                for column in range(4):
+                    button = Button(window, width=10, fg="green", height=3, bd=0, bg='#fff',
+                                    cursor='hand2', activebackground='#1e90ff', text=buttons[count],
+                                    command=lambda i=buttons[count]: self.functions(i)).grid(row=row, column=column)
+                    count += 1
+    
+        def functions(self, i):
+            run_class = Calculations(self.gui_input_text, self.gui_memory_text, self.gui_operation)
+            self.debug(fn="functions start")
+    
+            if (i == 'M+'):
+                answer = run_class.btn_memory_add(self.gui_operation)
+                self.gui_operation = answer
+            elif (i == 'M-'):
+                answer = run_class.btn_memory_sub(self.gui_operation)
+                self.gui_operation = answer
+            elif (i == 'MR'):
+                answer = run_class.memory_call(self.gui_operation)
+                self.gui_operation = answer
+            elif (i == 'MC'):
+                answer = run_class.memory_clear(self.gui_operation)
+            elif (i == 'CA'):
+                answer = run_class.btn_clear(self.gui_operation)
+                self.gui_operation = ""
+            elif (i == 'Del'):
+                answer = run_class.btn_del(self.gui_operation)
+                self.gui_operation = answer
+            elif (i == '='):
+                answer = run_class.btn_equal(self.gui_operation)
+            elif (i == 'Sqr'):
+                answer = run_class.btn_Sqr(self.gui_operation)
+            elif (i == '%'):
+                answer = run_class.percentage(self.gui_operation)
+            else:
+                self.gui_operation += i
+                answer = run_class.btn_eval(i)
+    
+            self.gui_input_text.set(answer)
+            self.debug(fn="functions end")
+    
+        def debug(self, fn=None):
+            print(
+                f"*** {fn} ***\nG Memory:\t{self.gui_memory_text.get()}\nG Input:\t{self.gui_input_text.get()}\nG Operation:\t{self.gui_operation}\n")
+    
+    
+    
+    class Calculations():
+    
+        def __init__(self, input_text, memory_text, operation):
+            self.calc_input_text = input_text
+            self.calc_memory_text = memory_text
+            self.calc_operation = operation
+            self.debug(fn="__init__")
+    
+        def btn_eval(self, i):
+            self.debug(fn="btn_eval")
+            self.calc_operation += i
+            self.calc_input_text.set(self.calc_operation)
+            if (len(self.calc_operation)) > 24:
+                messagebox.showerror("Error Window", "Inputs too Long")
+            else:
+                return self.calc_operation
+    
+        def btn_memory_add(self, calc_operation):
+            self.debug(fn="btn_memory_add")
+            if self.calc_operation != '':
+                Mem_ADD = self.calc_memory_text.get()
+                ans = eval(Mem_ADD + "+" + self.calc_operation)
+                self.calc_memory_text.set(ans)
+            return ""
+    
+    
+        def btn_memory_sub(self, i):
+            self.debug(fn="btn_memory_sub")
+            if self.calc_operation != '':
+                Mem_Sub = self.calc_memory_text.get()
+                ans = eval(Mem_Sub + '-' + self.calc_operation)
+                self.calc_memory_text.set(ans)
+            return ""
+    
+    
+        def memory_call(self, calc_operation):
+            self.debug(fn="memory_call")
+            memory = self.calc_memory_text.get()
+            input_text.set(memory)
+            self.calc_memory_text.set("")
+            return memory
+    
+    
+        def memory_clear(self, calc_operation):
+            self.debug(fn="memory_clear")
+            self.calc_memory_text.set("")  # double check this.
+            return self.calc_input_text.get()
+    
+    
+        def btn_del(self, calc_operation):
+            self.debug(fn="btn_del")
+            self.calc_operation = self.calc_operation[
+                                  0:len(self.calc_operation) - 1]
+            return self.calc_operation
+    
+    
+        def btn_clear(self, calc_operation):
+            self.debug(fn="btn_clear")
+            self.calc_operation = ""
+            return ""
+    
+        def btn_Sqr(self, calc_operation):
+            self.debug(fn="btn_Sqr")
+            pass
+    
+        def percentage(self, calc_operation):
+            self.debug(fn="percentage")
+            pass
+    
+    
+        def btn_equal(self, calc_operation):
+            self.debug(fn="btn_equal")
+    
+            try:
+                result = str(eval(self.calc_operation))
+            except ZeroDivisionError:
+                result = "Zero Division Error"
+                self.calc_input_text.set(result)
+                result = ""
+            except SyntaxError:
+                result = "Input Error"
+                self.calc_input_text.set(result)
+                result = ""
+    
+            if (len(result) > 10):
+                result = "{:e}".format(
+                    float(result))
+            elif (len(result)) > 24:
+                messagebox.showerror("Error Window",
+                                     "answers too Long. Press Clear")
+    
+            self.calc_operation = result
+            return result
+    
+        def debug(self, fn=None):
+            print(
+                f"*** {fn} ***\nC Memory:\t{self.calc_memory_text.get()}\nC Input:\t{self.calc_input_text.get()}\nC Operation:\t{self.calc_operation}\n")
+    
+    
+    operation = ""
+    
+    input_text = StringVar()
+    memory_text = StringVar()
+    calculator = GUI(input_text, memory_text, operation)
+    window.mainloop()
